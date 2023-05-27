@@ -20,7 +20,7 @@ export default async function data(req, res) {
       let products = await Product.find({
         gender: gender == "both" ? { $ne: null } : { $regex: new RegExp(gender, "i") },
         age: age == "all" ? { $ne: null } : { $regex: age == 1 ? /(^|,)\s*1\s*(?=,|$)/i : new RegExp(age, "i") },
-        currency_symbol: { $ne: "$" },
+        currency_symbol: "$",
         $and: [
           { tags: Boolean(likes.length) ? { $regex: new RegExp(likes.join("|"), "i") } : { $ne: null } },
           { tags: Boolean(dislikes.length) ? { $not: new RegExp(dislikes.join("|"), "i") } : { $ne: null } },

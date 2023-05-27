@@ -47,6 +47,7 @@ export default function Home() {
           </Select>
         </FormControl>
         <Autocomplete
+          key="likes"
           freeSolo
           multiple
           options={[]}
@@ -55,6 +56,7 @@ export default function Home() {
           renderInput={(params) => <TextField {...params} label="Likes" placeholder="(optional)" />}
         />
         <Autocomplete
+          key="dislikes"
           freeSolo
           multiple
           options={[]}

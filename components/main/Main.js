@@ -33,6 +33,16 @@ export default function Main(props) {
     props.setAge(event.target.value);
   };
 
+  const likesChangeHandler = (event) => {
+    let arr = event.target.value.split(",").filter((ele) => ele && ele.trim());
+    props.setLikes(arr);
+  };
+
+  const dislikesChangeHandler = (event) => {
+    let arr = event.target.value.split(",").filter((ele) => ele && ele.trim());
+    props.setDislikes(arr);
+  };
+
   return (
     <Card variant="outlined" sx={{ position: "relative", width: props.breakpoint ? "100%" : 800, padding: 4, borderRadius: 3 }}>
       <Stack spacing={2}>
@@ -58,37 +68,21 @@ export default function Main(props) {
           </FormControl>
         </Stack>
         <Stack direction={props.breakpoint ? "column" : "row"} spacing={2}>
-          <Autocomplete
+          <TextField
             fullWidth
-            freeSolo
-            multiple
-            options={[]}
-            onChange={(event, newValue) => props.setLikes(newValue)}
-            renderTags={(value, getTagProps) => value.map((option, index) => <Chip key={index} label={option} {...getTagProps({ index })} />)}
-            renderInput={(params) => (
-              <TextField
-                {...params}
-                InputLabelProps={{ style: { fontWeight: props.boldLabels && "bold" } }}
-                label="Who likes"
-                placeholder="comma separated values (like car, doll)"
-              />
-            )}
+            variant="outlined"
+            onChange={likesChangeHandler}
+            InputLabelProps={{ style: { fontWeight: props.boldLabels && "bold" } }}
+            label="Who likes"
+            placeholder="comma separated values (like car, doll)"
           />
-          <Autocomplete
+          <TextField
             fullWidth
-            freeSolo
-            multiple
-            options={[]}
-            onChange={(event, newValue) => props.setDislikes(newValue)}
-            renderTags={(value, getTagProps) => value.map((option, index) => <Chip key={index} label={option} {...getTagProps({ index })} />)}
-            renderInput={(params) => (
-              <TextField
-                {...params}
-                InputLabelProps={{ style: { fontWeight: props.boldLabels && "bold" } }}
-                label="& dislikes"
-                placeholder="comma separated values (like chess, art)"
-              />
-            )}
+            variant="outlined"
+            onChange={dislikesChangeHandler}
+            InputLabelProps={{ style: { fontWeight: props.boldLabels && "bold" } }}
+            label="& dislikes"
+            placeholder="comma separated values (like chess, art)"
           />
         </Stack>
         <Typography align="center">

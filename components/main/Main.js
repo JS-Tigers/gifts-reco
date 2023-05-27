@@ -1,7 +1,6 @@
 // mui
 import {
   Autocomplete,
-  Box,
   Button,
   Card,
   Chip,
@@ -64,31 +63,24 @@ export default function Main(props) {
             freeSolo
             multiple
             options={[]}
-            defaultValue={[]}
+            onChange={(event, newValue) => props.setLikes(newValue)}
             renderTags={(value, getTagProps) => value.map((option, index) => <Chip key={index} label={option} {...getTagProps({ index })} />)}
-            renderInput={(params) => (
-              <TextField {...params} InputLabelProps={{ style: { fontWeight: props.boldLabels && "bold" } }} label="Likes" placeholder="(optional)" />
-            )}
+            renderInput={(params) => <TextField {...params} InputLabelProps={{ style: { fontWeight: props.boldLabels && "bold" } }} label="Likes" />}
           />
           <Autocomplete
             fullWidth
             freeSolo
             multiple
             options={[]}
-            defaultValue={[]}
+            onChange={(event, newValue) => props.setDislikes(newValue)}
             renderTags={(value, getTagProps) => value.map((option, index) => <Chip key={index} label={option} {...getTagProps({ index })} />)}
             renderInput={(params) => (
-              <TextField
-                {...params}
-                InputLabelProps={{ style: { fontWeight: props.boldLabels && "bold" } }}
-                label="Dislikes"
-                placeholder="(optional)"
-              />
+              <TextField {...params} InputLabelProps={{ style: { fontWeight: props.boldLabels && "bold" } }} label="Dislikes" />
             )}
           />
         </Stack>
         <Typography align="center">
-          <Button variant="contained" onClick={props.submitHandler} sx={{ fontWeight: props.boldLabels && "bold" }}>
+          <Button variant="contained" size="large" onClick={props.submitHandler} sx={{ fontWeight: props.boldLabels && "bold" }}>
             Submit
           </Button>
         </Typography>

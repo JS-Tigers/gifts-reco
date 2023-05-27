@@ -7,11 +7,16 @@ import Main from "../components/main/Main";
 import ProductsDisplay from "../components/products/ProductsDisplay";
 
 export default function Home() {
-  const [mainView, setMainView] = useState(false);
+  const [mainView, setMainView] = useState(true);
+
   const [gender, setGender] = useState("");
   const [age, setAge] = useState("");
+  const [likes, setLikes] = useState([]);
+  const [dislikes, setDislikes] = useState([]);
+
   const [genderError, setGenderError] = useState(false);
   const [ageError, setAgeError] = useState(false);
+
   const [products, setProducts] = useState([]);
 
   const breakpoint = useMediaQuery("(max-width: 800px)");
@@ -24,6 +29,8 @@ export default function Home() {
     if (gender && age) {
       setGender("");
       setAge("");
+      setLikes([]);
+      setDislikes([]);
       setMainView(false);
     }
   };
@@ -133,6 +140,10 @@ export default function Home() {
           setAge={setAge}
           genderError={genderError}
           setGenderError={setGenderError}
+          likes={likes}
+          setLikes={setLikes}
+          dislikes={dislikes}
+          setDislikes={setDislikes}
           ageError={ageError}
           setAgeError={setAgeError}
           breakpoint={breakpoint}

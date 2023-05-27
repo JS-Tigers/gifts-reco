@@ -1,17 +1,10 @@
-// ** React imports
-import { useState, useEffect } from "react";
-
-// ** Next imports
-import { useRouter } from "next/router";
-
-// ** MUI Imports
-import { Grid, Typography, Box, Rating, Chip, Button, Card, CardHeader, CardContent, Checkbox } from "@mui/material";
-import { MonetizationOnRounded, FavoriteBorder, Favorite } from "@mui/icons-material";
+// mui
+import { Grid, Typography, Box, Rating, Chip, Button, Card, CardHeader, CardContent } from "@mui/material";
+// mui-icons
+import { CurrencyRupee, MonetizationOnRounded } from "@mui/icons-material";
 
 // ========================================== Component begins here =========================================================
 const Product = (props) => {
-  const router = useRouter();
-
   return (
     <Card
       sx={{
@@ -21,7 +14,6 @@ const Product = (props) => {
         position: "relative",
         overflow: "hidden",
         boxShadow: "rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px",
-        // background: props.selected ? "var(--product_selection_color)" : "inherit",
       }}
     >
       <CardHeader
@@ -43,7 +35,8 @@ const Product = (props) => {
             <Rating defaultValue={props.average_rating} precision={0.1} readOnly />
           </Grid>
           <Grid item container xs={12} justifyContent="center" alignItems="center">
-            <MonetizationOnRounded sx={{ fontSize: "1.9rem", color: "var(--currency_icon_color)" }} />
+            <MonetizationOnRounded sx={{ fontSize: "1.9rem", color: "var(--secondary)" }} />
+            {/* <CurrencyRupee sx={{ fontSize: "1.9rem", color: "var(--secondary)" }} /> */}
             <Typography variant="h6">
               <strong>{props.price}</strong>
             </Typography>
@@ -64,15 +57,14 @@ const Product = (props) => {
               rel="noreferrer"
               variant="contained"
               sx={{
-                backgroundColor: "#000000",
+                backgroundColor: "var(--tertiary)",
                 borderRadius: 50,
                 px: 2,
                 py: 0.5,
-                fontFamily: "'Anton', sans-serif !important",
                 fontSize: "1rem",
-                color: "#ED5E93",
-                fontWeight: 800,
-                "&:hover": { backgroundColor: "#000000" },
+                color: "#fff",
+                fontWeight: "bold",
+                "&:hover": { backgroundColor: "var(--primary)", color: "#000" },
               }}
             >
               Buy Now

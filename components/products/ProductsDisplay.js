@@ -1,7 +1,5 @@
-// react
-import { Fragment, useState } from "react";
 // mui
-import { Box, Button, Stack, Typography } from "@mui/material";
+import { Button, Stack, Typography } from "@mui/material";
 // mui-icons
 import { Reply } from "@mui/icons-material";
 // components
@@ -25,7 +23,7 @@ export default function ProductsDisplay(props) {
       </Typography>
       <br />
       <Stack direction={props.breakpoint ? "column" : "row"} spacing={3}>
-        {products.map((product) => {
+        {props.products.map((product) => {
           return (
             <Product
               key={product._id}

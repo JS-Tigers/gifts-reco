@@ -38,7 +38,7 @@ export default async function data(req, res) {
       });
 
       if (products.length > 3) {
-        products = products.slice(2);
+        products = products.slice(0, 3);
       }
 
       res.status(200).json(products);

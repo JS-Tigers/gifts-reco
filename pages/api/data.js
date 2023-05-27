@@ -17,12 +17,26 @@ export default async function data(req, res) {
     if (gender && age) {
       await connectMongoDB();
 
-      const products = await Product.find({
+      let products = await Product.find({
         gender: gender == "both" ? { $ne: null } : { $regex: new RegExp(gender, "i") },
         age: age == "all" ? { $ne: null } : { $regex: age == 1 ? /(^|,)\s*1\s*(?=,|$)/i : new RegExp(age, "i") },
         currency_symbol: { $ne: "$" },
         $and: [{ tags: { $regex: new RegExp(likes.join("|"), "i") } }, { tags: { $not: new RegExp(dislikes.join("|"), "i") } }],
       });
+
+      products.sort((a, b) => {
+        if (a.ratings_total * a.average_rating > b.ratings_total * b.average_rating) {
+          return -1;
+        } else if (a.ratings_total * a.average_rating < b.ratings_total * b.average_rating) {
+          return 1;
+        }
+
+        return 0;
+      });
+
+      if (products.length > 3) {
+        products = products.slice(2);
+      }
 
       res.status(200).json(products);
     } else {

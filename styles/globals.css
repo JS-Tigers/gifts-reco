@@ -11,8 +11,9 @@ body,
 
 :root {
   --primary: #2faeb7;
-  --seconday: #ffc731;
-  --dark: #1e343b;
+  --secondary: #ffc731;
+  --dark: #7f7f7f;
+  --bg: #eee;
 }
 
 a {

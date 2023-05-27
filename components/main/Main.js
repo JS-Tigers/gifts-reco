@@ -65,7 +65,14 @@ export default function Main(props) {
             options={[]}
             onChange={(event, newValue) => props.setLikes(newValue)}
             renderTags={(value, getTagProps) => value.map((option, index) => <Chip key={index} label={option} {...getTagProps({ index })} />)}
-            renderInput={(params) => <TextField {...params} InputLabelProps={{ style: { fontWeight: props.boldLabels && "bold" } }} label="Likes" />}
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                InputLabelProps={{ style: { fontWeight: props.boldLabels && "bold" } }}
+                label="Who likes"
+                placeholder="comma separated values (like car, doll)"
+              />
+            )}
           />
           <Autocomplete
             fullWidth
@@ -75,7 +82,12 @@ export default function Main(props) {
             onChange={(event, newValue) => props.setDislikes(newValue)}
             renderTags={(value, getTagProps) => value.map((option, index) => <Chip key={index} label={option} {...getTagProps({ index })} />)}
             renderInput={(params) => (
-              <TextField {...params} InputLabelProps={{ style: { fontWeight: props.boldLabels && "bold" } }} label="Dislikes" />
+              <TextField
+                {...params}
+                InputLabelProps={{ style: { fontWeight: props.boldLabels && "bold" } }}
+                label="& dislikes"
+                placeholder="comma separated values (like chess, art)"
+              />
             )}
           />
         </Stack>

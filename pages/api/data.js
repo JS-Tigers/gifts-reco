@@ -21,9 +21,31 @@ export default async function data(req, res) {
         gender: gender == "both" ? { $ne: null } : { $regex: new RegExp(gender, "i") },
         age: age == "all" ? { $ne: null } : { $regex: age == 1 ? /(^|,)\s*1\s*(?=,|$)/i : new RegExp(age, "i") },
         currency_symbol: "$",
-        $and: [
-          { tags: Boolean(likes.length) ? { $regex: new RegExp(likes.join("|"), "i") } : { $ne: null } },
-          { tags: Boolean(dislikes.length) ? { $not: new RegExp(dislikes.join("|"), "i") } : { $ne: null } },
+        $or: [
+          {
+            $and: [
+              { brands: Boolean(likes.length) ? { $regex: new RegExp(likes.join("|"), "i") } : { $ne: null } },
+              { brands: Boolean(dislikes.length) ? { $not: new RegExp(dislikes.join("|"), "i") } : { $ne: null } },
+            ],
+          },
+          {
+            $and: [
+              { categories: Boolean(likes.length) ? { $regex: new RegExp(likes.join("|"), "i") } : { $ne: null } },
+              { categories: Boolean(dislikes.length) ? { $not: new RegExp(dislikes.join("|"), "i") } : { $ne: null } },
+            ],
+          },
+          {
+            $and: [
+              { characters: Boolean(likes.length) ? { $regex: new RegExp(likes.join("|"), "i") } : { $ne: null } },
+              { characters: Boolean(dislikes.length) ? { $not: new RegExp(dislikes.join("|"), "i") } : { $ne: null } },
+            ],
+          },
+          {
+            $and: [
+              { tags: Boolean(likes.length) ? { $regex: new RegExp(likes.join("|"), "i") } : { $ne: null } },
+              { tags: Boolean(dislikes.length) ? { $not: new RegExp(dislikes.join("|"), "i") } : { $ne: null } },
+            ],
+          },
         ],
       });
 

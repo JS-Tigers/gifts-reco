@@ -12,8 +12,8 @@ body,
 :root {
   --primary: #2faeb7;
   --secondary: #ffc731;
-  --dark: #7f7f7f;
-  --bg: #eee;
+  --tertiary: #008000;
+  --bg: #7f7f7f;
 }
 
 a {
@@ -24,5 +24,4 @@ a {
 * {
   box-sizing: border-box;
   font-family: 'Kanit', sans-serif !important;
-  /* color: #fff; */
 }

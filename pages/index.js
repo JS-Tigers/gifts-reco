@@ -1,69 +1,99 @@
 // react
 import { useState } from "react";
 // mui
-import { Autocomplete, Box, Button, Card, Chip, FormControl, FormControlLabel, FormLabel, InputLabel, MenuItem, Radio, RadioGroup, Select, TextField, useMediaQuery } from "@mui/material";
+import { Box, useMediaQuery } from "@mui/material";
+// axios
+import axios from "axios";
+// components
+import Main from "../components/main/Main";
+import ProductsDisplay from "../components/products/ProductsDisplay";
+// bg-image
+// import Background from "../public/bg.png";
 
 export default function Home() {
-  const [gender, setGender] = useState(null);
-  const [age, setAge] = useState(null);
+  const [mainView, setMainView] = useState(true);
 
-  const genderChangeHandler = (event, value) => {
-    setGender(value);
+  const [gender, setGender] = useState("");
+  const [age, setAge] = useState("");
+  const [likes, setLikes] = useState([]);
+  const [dislikes, setDislikes] = useState([]);
+
+  const [genderError, setGenderError] = useState(false);
+  const [ageError, setAgeError] = useState(false);
+
+  const [products, setProducts] = useState([]);
+
+  const breakpoint = useMediaQuery("(max-width: 800px)");
+  const boldLabels = true;
+
+  const submitHandler = async () => {
+    if (gender == "") setGenderError(true);
+    if (age == "") setAgeError(true);
+
+    if (gender && age) {
+      const response = await axios
+        .post("/api/data", { gender, age, likes, dislikes })
+        .then((res) => res.data)
+        .catch((err) => console.log(err));
+
+      setProducts(response);
+
+      setGender("");
+      setAge("");
+      setLikes([]);
+      setDislikes([]);
+      setMainView(false);
+    }
   };
-
-  const ageChangeHandler = (event) => {
-    setAge(event.target.value);
-  };
-
-  const breakpoint = useMediaQuery("max-width: 720px");
 
   return (
     <Box
       sx={{
-        height: "100%",
+        minHeight: "100%",
         width: "100%",
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
-        backgroundColor: "var(--dark)",
+        backgroundColor: "var(--bg)",
+        overflowX: "hidden",
+        paddingY: 5,
+        opacity: 1,
+        "&::before": {
+          content: '""',
+          position: "absolute",
+          backgroundImage: `url("/bg.png")`,
+          backgroundPosition: "center",
+          backgroundSize: "contain",
+          top: 0,
+          right: 0,
+          bottom: 0,
+          left: 0,
+          opacity: 0.2,
+        },
       }}
     >
-      <Card variant="outlined" raised sx={{ width: 500, padding: 3 }}>
-        <FormControl>
-          <FormLabel sx={{ fontWeight: "bold", textAlign: "center" }}>Gender</FormLabel>
-          <RadioGroup row value={gender} onChange={genderChangeHandler}>
-            <FormControlLabel value="boy" control={<Radio />} label="Boy" />
-            <FormControlLabel value="girl" control={<Radio />} label="Girl" />
-            <FormControlLabel value="both" control={<Radio />} label="Both" />
-          </RadioGroup>
-        </FormControl>
-        <FormControl fullWidth>
-          <InputLabel sx={{ fontWeight: "bold" }}>Age</InputLabel>
-          <Select value={age} label="Age" onChange={ageChangeHandler}>
-            <MenuItem value={10}>Ten</MenuItem>
-            <MenuItem value={20}>Twenty</MenuItem>
-            <MenuItem value={30}>Thirty</MenuItem>
-          </Select>
-        </FormControl>
-        <Autocomplete
-          freeSolo
-          multiple
-          options={[]}
-          defaultValue={[]}
-          renderTags={(value, getTagProps) => value.map((option, index) => <Chip key={index} variant="outlined" label={option} {...getTagProps({ index })} />)}
-          renderInput={(params) => <TextField {...params} label="Likes" placeholder="(optional)" />}
+      {mainView ? (
+        <Main
+          gender={gender}
+          setGender={setGender}
+          age={age}
+          setAge={setAge}
+          genderError={genderError}
+          setGenderError={setGenderError}
+          likes={likes}
+          setLikes={setLikes}
+          dislikes={dislikes}
+          setDislikes={setDislikes}
+          ageError={ageError}
+          setAgeError={setAgeError}
+          breakpoint={breakpoint}
+          boldLabels={boldLabels}
+          submitHandler={submitHandler}
         />
-        <Autocomplete
-          freeSolo
-          multiple
-          options={[]}
-          defaultValue={[]}
-          renderTags={(value, getTagProps) => value.map((option, index) => <Chip key={index} variant="outlined" label={option} {...getTagProps({ index })} />)}
-          renderInput={(params) => <TextField {...params} label="Dislikes" placeholder="(optional)" />}
-        />
-        <Button variant="contained">Submit</Button>
-      </Card>
+      ) : (
+        <ProductsDisplay products={products} setMainView={setMainView} breakpoint={breakpoint} />
+      )}
     </Box>
   );
 }

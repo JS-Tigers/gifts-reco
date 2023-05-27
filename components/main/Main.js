@@ -37,7 +37,7 @@ export default function Main(props) {
     <Card variant="outlined" sx={{ position: "relative", width: props.breakpoint ? "100%" : 800, padding: 4, borderRadius: 3 }}>
       <Stack spacing={2}>
         <Typography align="center" fontSize={25}>
-          Please enter the parameters below&#58;
+          Show me gifts for&#58;
         </Typography>
         <Stack direction={props.breakpoint ? "column" : "row"} spacing={2}>
           <FormControl fullWidth error={props.genderError}>

@@ -1,9 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Kanit&display=swap');
+
 html,
-body {
+body,
+#__next {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  height: 100%;
+  width: 100%;
+}
+
+:root {
+  --primary: #2faeb7;
+  --secondary: #ffc731;
+  --dark: #7f7f7f;
+  --bg: #eee;
 }
 
 a {
@@ -13,14 +23,6 @@ a {
 
 * {
   box-sizing: border-box;
-}
-
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
-  body {
-    color: white;
-    background: black;
-  }
+  font-family: 'Kanit', sans-serif !important;
+  /* color: #fff; */
 }

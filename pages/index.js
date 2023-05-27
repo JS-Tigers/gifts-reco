@@ -47,21 +47,19 @@ export default function Home() {
           </Select>
         </FormControl>
         <Autocomplete
-          key="likes"
           freeSolo
           multiple
           options={[]}
           defaultValue={[]}
-          renderTags={(value, getTagProps) => value.map((option, index) => <Chip variant="outlined" label={option} {...getTagProps({ index })} />)}
+          renderTags={(value, getTagProps) => value.map((option, index) => <Chip key={index} variant="outlined" label={option} {...getTagProps({ index })} />)}
           renderInput={(params) => <TextField {...params} label="Likes" placeholder="(optional)" />}
         />
         <Autocomplete
-          key="dislikes"
           freeSolo
           multiple
           options={[]}
           defaultValue={[]}
-          renderTags={(value, getTagProps) => value.map((option, index) => <Chip variant="outlined" label={option} {...getTagProps({ index })} />)}
+          renderTags={(value, getTagProps) => value.map((option, index) => <Chip key={index} variant="outlined" label={option} {...getTagProps({ index })} />)}
           renderInput={(params) => <TextField {...params} label="Dislikes" placeholder="(optional)" />}
         />
         <Button variant="contained">Submit</Button>

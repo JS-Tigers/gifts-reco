@@ -20,7 +20,7 @@ const Product = (props) => {
         sx={{ height: 100 }}
         title={
           <Typography variant="body1" sx={{ textAlign: "center", color: "#0a0908" }}>
-            <strong>{props.product_name_cleaned}</strong>
+            <strong>{props.product_name.length > 67 ? props.product_name.slice(0, 67) + " ..." : props.product_name}</strong>
           </Typography>
         }
       />
@@ -35,8 +35,11 @@ const Product = (props) => {
             <Rating defaultValue={props.average_rating} precision={0.1} readOnly />
           </Grid>
           <Grid item container xs={12} justifyContent="center" alignItems="center">
-            <MonetizationOnRounded sx={{ fontSize: "1.9rem", color: "var(--secondary)" }} />
-            {/* <CurrencyRupee sx={{ fontSize: "1.9rem", color: "var(--secondary)" }} /> */}
+            {props.currency_symbol == "$" ? (
+              <MonetizationOnRounded sx={{ fontSize: "1.9rem", color: "var(--secondary)" }} />
+            ) : (
+              <CurrencyRupee sx={{ fontSize: "1.9rem", color: "var(--secondary)" }} />
+            )}
             <Typography variant="h6">
               <strong>{props.price}</strong>
             </Typography>

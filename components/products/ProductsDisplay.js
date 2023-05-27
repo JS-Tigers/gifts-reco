@@ -28,8 +28,9 @@ export default function ProductsDisplay(props) {
             <Product
               key={product._id}
               id={product._id}
-              product_name_cleaned={product.product_name_cleaned}
+              product_name={product.product_name}
               average_rating={product.average_rating}
+              currency_symbol={product.currency_symbol}
               price={product.price}
               image_link={product.image_link}
               delivery_tagline={product.delivery_tagline}

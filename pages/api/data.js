@@ -1,12 +1,33 @@
-export default function data(req, res) {
+import mongoose from "mongoose";
+import Product from "../../models/product";
+
+const connectMongoDB = async () => {
+  return await mongoose
+    .connect(process.env.MONGODB_URL, { dbName: "mv-hackathon", useNewUrlParser: true, useUnifiedTopology: true })
+    .then(() => Promise.resolve(true))
+    .catch((error) => Promise.reject(error));
+};
+
+export default async function data(req, res) {
   if (req.method == "GET") {
     res.status(200).json({ status: "working" });
   } else if (req.method == "POST") {
     const { gender, age, likes, dislikes } = req.body;
 
-    let products = [];
+    if (gender && age) {
+      await connectMongoDB();
 
-    res.status(200).json(products);
+      const products = await Product.find({
+        gender: gender == "both" ? { $ne: null } : { $regex: new RegExp(gender, "i") },
+        age: age == "all" ? { $ne: null } : { $regex: age == 1 ? /(^|,)\s*1\s*(?=,|$)/i : new RegExp(age, "i") },
+        currency_symbol: { $ne: "$" },
+        $and: [{ tags: { $regex: new RegExp(likes.join("|"), "i") } }, { tags: { $not: new RegExp(dislikes.join("|"), "i") } }],
+      });
+
+      res.status(200).json(products);
+    } else {
+      res.status(400).json("Bad Request");
+    }
   } else {
     res.status(400).json("Bad Request");
   }

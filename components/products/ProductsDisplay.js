@@ -7,7 +7,7 @@ import Product from "./Product";
 
 export default function ProductsDisplay(props) {
   return (
-    <Stack>
+    <Stack sx={{ position: "relative" }}>
       <Typography>
         <Button
           startIcon={<Reply />}

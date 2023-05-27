@@ -34,7 +34,7 @@ export default function Main(props) {
   };
 
   return (
-    <Card variant="outlined" sx={{ width: props.breakpoint ? "100%" : 800, padding: 4, borderRadius: 3 }}>
+    <Card variant="outlined" sx={{ position: "relative", width: props.breakpoint ? "100%" : 800, padding: 4, borderRadius: 3 }}>
       <Stack spacing={2}>
         <Typography align="center" fontSize={25}>
           Please enter the parameters below&#58;

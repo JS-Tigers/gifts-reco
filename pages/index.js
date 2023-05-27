@@ -7,6 +7,8 @@ import axios from "axios";
 // components
 import Main from "../components/main/Main";
 import ProductsDisplay from "../components/products/ProductsDisplay";
+// bg-image
+// import Background from "../public/bg.png";
 
 export default function Home() {
   const [mainView, setMainView] = useState(true);
@@ -56,6 +58,19 @@ export default function Home() {
         backgroundColor: "var(--bg)",
         overflowX: "hidden",
         paddingY: 5,
+        opacity: 1,
+        "&::before": {
+          content: '""',
+          position: "absolute",
+          backgroundImage: `url("/bg.png")`,
+          backgroundPosition: "center",
+          backgroundSize: "contain",
+          top: 0,
+          right: 0,
+          bottom: 0,
+          left: 0,
+          opacity: 0.2,
+        },
       }}
     >
       {mainView ? (

@@ -21,7 +21,10 @@ export default async function data(req, res) {
         gender: gender == "both" ? { $ne: null } : { $regex: new RegExp(gender, "i") },
         age: age == "all" ? { $ne: null } : { $regex: age == 1 ? /(^|,)\s*1\s*(?=,|$)/i : new RegExp(age, "i") },
         currency_symbol: { $ne: "$" },
-        $and: [{ tags: { $regex: new RegExp(likes.join("|"), "i") } }, { tags: { $not: new RegExp(dislikes.join("|"), "i") } }],
+        $and: [
+          { tags: Boolean(likes.length) ? { $regex: new RegExp(likes.join("|"), "i") } : { $ne: null } },
+          { tags: Boolean(dislikes.length) ? { $not: new RegExp(dislikes.join("|"), "i") } : { $ne: null } },
+        ],
       });
 
       products.sort((a, b) => {

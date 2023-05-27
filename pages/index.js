@@ -32,7 +32,7 @@ export default function Home() {
 
     if (gender && age) {
       const response = await axios
-        .post("/api/data", { gender, age, likes, dislikes })
+        .post(`${process.env.API_URL}/api/data`, { gender, age, likes, dislikes })
         .then((res) => res.data)
         .catch((err) => console.log(err));
 

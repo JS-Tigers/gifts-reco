@@ -2,6 +2,8 @@
 import { useEffect, useState } from "react";
 // mui
 import { Box, useMediaQuery } from "@mui/material";
+// axios
+import axios from "axios";
 // components
 import Main from "../components/main/Main";
 import ProductsDisplay from "../components/products/ProductsDisplay";
@@ -22,16 +24,23 @@ export default function Home() {
   const breakpoint = useMediaQuery("(max-width: 800px)");
   const boldLabels = true;
 
-  const submitHandler = () => {
+  const submitHandler = async () => {
     if (gender == "") setGenderError(true);
     if (age == "") setAgeError(true);
 
     if (gender && age) {
-      setGender("");
-      setAge("");
-      setLikes([]);
-      setDislikes([]);
-      setMainView(false);
+      const response = await axios
+        .post("/api/data", { gender, age, likes, dislikes })
+        .then((res) => res.data)
+        .catch((err) => console.log(err));
+
+      console.log(response);
+
+      // setGender("");
+      // setAge("");
+      // setLikes([]);
+      // setDislikes([]);
+      // setMainView(false);
     }
   };
 
